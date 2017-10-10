@@ -98,7 +98,7 @@ class Plural implements PluralInterface{
 	 * @return string
 	 */
 	public function wrapZero($number){
-		return $number . ' ' . ($this->zero?:$this->many);
+		return $number . ' ' . ($this->pluralZero());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ class Plural implements PluralInterface{
 	 * @return string
 	 */
 	public function wrapSingle($number){
-		return $number . ' ' . ($this->single);
+		return $number . ' ' . ($this->pluralSingle());
 	}
 	
 	/**
@@ -114,7 +114,7 @@ class Plural implements PluralInterface{
 	 * @return string
 	 */
 	public function wrapSeveral($number){
-		return $number . ' ' . ($this->several);
+		return $number . ' ' . ($this->pluralSeveral());
 	}
 	
 	/**
@@ -122,7 +122,7 @@ class Plural implements PluralInterface{
 	 * @return string
 	 */
 	public function wrapMany($number){
-		return $number . ' ' . ($this->many);
+		return $number . ' ' . ($this->pluralMany());
 	}
 	
 	public function pluralZero(){
