@@ -177,6 +177,35 @@ class Plural implements PluralInterface{
 		return array_splice($numbers,-2);
 	}
 	
+	protected static $plurals = [];
+	
+	/**
+	 * @param $single
+	 * @param $several
+	 * @param $many
+	 * @param null $zero
+	 * @return PluralTemplate
+	 */
+	public static function get($single, $several, $many, $zero = null){
+		$key = md5(serialize([$single, $several, $many, $zero]));
+		if(!self::$plurals[$key]){
+			self::$plurals[$key] = new self($single, $several, $many, $zero);
+		}
+		return self::$plurals[$key];
+	}
+	
+	/**
+	 * @param $number
+	 * @param $single
+	 * @param $several
+	 * @param $many
+	 * @param null $zero
+	 * @return string
+	 */
+	public static function morph($number, $single, $several, $many, $zero = null){
+		$plural = self::get($single, $several, $many, $zero);
+		return $plural->render($number);
+	}
 }
 
 

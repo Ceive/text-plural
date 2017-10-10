@@ -74,6 +74,37 @@ class PluralTemplate extends Plural{
 		return $this->_processTpl($number, $this->pluralMany());
 	}
 	
+	protected static $templates = [];
+	
+	/**
+	 * @param $single
+	 * @param $several
+	 * @param $many
+	 * @param null $zero
+	 * @param null $placeholder
+	 * @return PluralTemplate
+	 */
+	public static function get($single, $several, $many, $zero = null, $placeholder = null){
+		$key = md5(serialize([$single, $several, $many, $zero, $placeholder]));
+		if(!self::$templates[$key]){
+			self::$templates[$key] = new self($single, $several, $many, $zero, $placeholder);
+		}
+		return self::$templates[$key];
+	}
+	
+	/**
+	 * @param $number
+	 * @param $single
+	 * @param $several
+	 * @param $many
+	 * @param null $zero
+	 * @param null $placeholder
+	 * @return string
+	 */
+	public static function morph($number, $single, $several, $many, $zero = null, $placeholder = null){
+		$plural = self::get($single, $several, $many, $zero, $placeholder);
+		return $plural->render($number);
+	}
 }
 
 
