@@ -79,15 +79,18 @@ class Plural implements PluralInterface{
 	 */
 	public function render($number){
 		list($a,$b) = $this->_split($number);
-		if($b == 1){
+		if($number == 0){
+			return $this->wrapZero($number);
+		}elseif($b == 1){
+			if($a === 1){
+				return $this->wrapMany($number);
+			}
 			return $this->wrapSingle($number);
 		}else if($b > 1 && $b < 5){
 			if($a === 1){
 				return $this->wrapMany($number);
 			}
 			return $this->wrapSeveral($number);
-		}else if($b == 0){
-			return $this->wrapZero($number);
 		}else{
 			return $this->wrapMany($number);
 		}
@@ -166,7 +169,7 @@ class Plural implements PluralInterface{
 	
 	/**
 	 * @param $number
-	 * @return int
+	 * @return int[]
 	 */
 	protected function _split($number){
 		$numString = "$number";
@@ -174,7 +177,11 @@ class Plural implements PluralInterface{
 			$numString = strstr($numString,'.',true);
 		}
 		$numbers = array_map('intval', str_split($numString));
-		return array_splice($numbers,-2);
+		if(count($numbers) > 1){
+			return array_splice($numbers,-2);
+		}else{
+			return [null,array_shift($numbers)];
+		}
 	}
 	
 	protected static $plurals = [];

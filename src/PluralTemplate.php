@@ -63,7 +63,7 @@ class PluralTemplate extends Plural{
 	 * @return string
 	 */
 	public function wrapSeveral($number){
-		return $this->_processTpl($number, $this->pluralSingle());
+		return $this->_processTpl($number, $this->pluralSeveral());
 	}
 	
 	/**
