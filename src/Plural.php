@@ -65,7 +65,7 @@ class Plural implements PluralInterface{
 	 * @param $many
 	 * @param $zero
 	 */
-	public function __construct($single, $several, $many, $zero){
+	public function __construct($single, $several, $many, $zero = null){
 		
 		$this->single = is_array($single)?implode(' ', $single):$single;
 		$this->several = is_array($several)?implode(' ', $several):$several;
