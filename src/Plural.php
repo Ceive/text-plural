@@ -195,7 +195,7 @@ class Plural implements PluralInterface{
 	 */
 	public static function get($single, $several, $many, $zero = null){
 		$key = md5(serialize([$single, $several, $many, $zero]));
-		if(!self::$plurals[$key]){
+		if(!isset(self::$plurals[$key])){
 			self::$plurals[$key] = new self($single, $several, $many, $zero);
 		}
 		return self::$plurals[$key];

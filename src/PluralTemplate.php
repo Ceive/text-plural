@@ -86,7 +86,7 @@ class PluralTemplate extends Plural{
 	 */
 	public static function get($single, $several, $many, $zero = null, $placeholder = null){
 		$key = md5(serialize([$single, $several, $many, $zero, $placeholder]));
-		if(!self::$templates[$key]){
+		if(!isset(self::$templates[$key])){
 			self::$templates[$key] = new self($single, $several, $many, $zero, $placeholder);
 		}
 		return self::$templates[$key];
